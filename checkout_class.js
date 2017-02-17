@@ -97,7 +97,8 @@ class Checkout{
 
 
           default:
-          console.info("This kind of rule it's not specified...");
+          console.info(`${price_rule.action.type}...that kind of rule it's not specified... `);
+          
         }
 
 
