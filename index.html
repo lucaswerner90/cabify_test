@@ -7,25 +7,45 @@
 <body>
   <script src="checkout_class.js" charset="utf-8"></script>
   <script type="text/javascript">
-  const pricingRules=[
+
+  /*
+  We create this pricing_rules object( the same as the Checkout class ).
+  The structure of the every pricing rule object is:
+  {
+    action:{
+      type: discount || change_price,
+      discount: >0
+    },
+    min_num_items: >=0 ,
+    condition:"even_quantity", [optional_field]
+    item_code: has to be the same as the code of one of the products in the product cart.
+  }
+  */
+  const pricing_rules=[
     {
-      code:"VOUCHER",
-      name:"Cabify Voucher",
-      price:5
+      action:{
+        type:"discount",
+        discount:0.5
+      },
+      min_num_items:2,
+      condition:"even_quantity",
+      item_code:"VOUCHER"
     },
     {
-      code:"TSHIRT",
-      name:"Cabify T-Shirt",
-      price:20
-    },
-    {
-      code:"VOUCHER",
-      name:"Cabify Voucher",
-      price:7.50
-    },
+      action:{
+        type:"change_price",
+        new_price:19
+      },
+      min_num_items:3,
+      item_code:"TSHIRT"
+    }
   ];
-  let co = new Checkout(pricingRules);
-  co.scan("VOUCHER").scan("VOUCHER").scan("TSHIRT");
+
+  let co = new Checkout(pricing_rules);
+  // co.scan("VOUCHER").scan("TSHIRT").scan("MUG");
+  // co.scan("TSHIRT").scan("TSHIRT").scan("TSHIRT").scan("VOUCHER").scan("TSHIRT");
+  // co.scan("VOUCHER").scan("TSHIRT").scan("VOUCHER");
+  co.scan("VOUCHER").scan("TSHIRT").scan("VOUCHER").scan("VOUCHER").scan("MUG").scan("TSHIRT").scan("TSHIRT");
   let price = co.total();
   </script>
 </body>
