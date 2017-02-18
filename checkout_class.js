@@ -187,10 +187,17 @@ class Checkout{
 
     }
 
+    /*
+    Once all the pricing rules are being applied we simply calculate the
+    normal price for every product that already remains in our cart.
+    */
     for (let i = 0; i < _self.products_on_cart.length; i++) {
       _self._total_price+=_self.products_on_cart[i].price;
     }
 
+    /*
+    We clean the product cart once all the calculation had finished.
+    */
     _self._clean_cart();
 
   }
